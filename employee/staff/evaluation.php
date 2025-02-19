@@ -4,25 +4,20 @@ session_start();
 // Include database connection
 include '../../db/db_conn.php'; 
 
-// Redirect to login page if employee is not logged in
 if (!isset($_SESSION['e_id'])) {
     header("Location: ../../employee/login.php");
     exit();
 }
 
-// Get the employee ID from the session
 $employeeId = $_SESSION['e_id'];
-
-// Fetch employee information
-$sql = "SELECT e_id, firstname, middlename, lastname, birthdate, email, role, position, department, phone_number, address, pfp 
-        FROM employee_register WHERE e_id = ?";
+$sql = "SELECT e_id, firstname, middlename, lastname, birthdate, email, role, position, department, phone_number, address, pfp FROM employee_register WHERE e_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $employeeId);
 $stmt->execute();
 $result = $stmt->get_result();
-
-// Store employee info in variable
 $employeeInfo = $result->fetch_assoc();
+
+$employeeId = $_SESSION['e_id'];
 
 // Fetch the average of the employee's evaluations
 $sql = "SELECT 
@@ -34,6 +29,7 @@ $sql = "SELECT
             COUNT(*) AS total_evaluations 
         FROM admin_evaluations 
         WHERE e_id = ?";
+        
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $employeeId);
 $stmt->execute();
@@ -47,11 +43,9 @@ if ($result->num_rows > 0) {
     exit;
 }
 
-// Close the statement and connection
 $stmt->close();
 $conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +61,7 @@ $conn->close();
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="sb-nav-fixed bg-black">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark border-bottom border-1 border-warning bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark border-bottom border-1 border-secondary bg-dark">
         <a class="navbar-brand ps-3 text-muted" href="../../employee/staff/dashboard.php">Employee Portal</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars text-light"></i></button>
             <div class="d-flex ms-auto me-0 me-md-3 my-2 my-md-0 align-items-center">
@@ -127,7 +121,7 @@ $conn->close();
                                 <span class="big text-light">
                                     <?php
                                         if ($employeeInfo) {
-                                        echo htmlspecialchars($employeeInfo['role']);
+                                        echo htmlspecialchars($employeeInfo['position']);
                                         } else {
                                         echo "User information not available.";
                                         }
@@ -135,7 +129,7 @@ $conn->close();
                                 </span>
                             </li>
                         </ul>
-                        <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-warning mt-3">Employee Dashboard</div>
+                        <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-secondary mt-3">Employee Dashboard</div>
                         <a class="nav-link text-light loading" href="../../employee/staff/dashboard.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
@@ -159,6 +153,7 @@ $conn->close();
                         <div class="collapse" id="collapseLM" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link text-light loading" href="../../employee/staff/leave_file.php">File Leave</a>
+                            <a class="nav-link text-light loading" href="../../employee/staff/leave_request.php">Endorse Leave</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePM" aria-expanded="false" aria-controls="collapsePM">
@@ -181,7 +176,7 @@ $conn->close();
                                 <a class="nav-link text-light loading" href="../../employee/staff/awardee.php">Awardee</a>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-warning mt-3">Feedback</div> 
+                        <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-secondary mt-3">Feedback</div> 
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseFB" aria-expanded="false" aria-controls="collapseFB">
                             <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle"></i></div>
                             Report Issue
@@ -194,7 +189,7 @@ $conn->close();
                         </div> 
                     </div>
                 </div>
-                <div class="sb-sidenav-footer bg-black text-light border-top border-1 border-warning">
+                <div class="sb-sidenav-footer bg-black text-light border-top border-1 border-secondary">
                     <div class="small">Logged in as: <?php echo htmlspecialchars($employeeInfo['role']); ?></div>
                 </div>
             </nav>
@@ -212,14 +207,14 @@ $conn->close();
                             </div>
                         </div>
                     </div>   
-                    <div class="card text-light bg-black py-4">
+                    <div class="card bg-black text-light py-4">
                         <p>Total number of evaluations: <?php echo htmlspecialchars($evaluation['total_evaluations']); ?></p>
                         
                         <div class="bg-dark bordered">
                             <canvas id="evaluationChart" width="700" height="400"></canvas>
                         </div>
 
-                        <table class="table table-bordered mt-3 text-light table-dark w-50">
+                        <table class="table table-bordered mt-3 text-light table-dark">
                             <thead>
                                 <tr class="text-center">
                                     <th>Category</th>
@@ -250,28 +245,28 @@ $conn->close();
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </main>
-                <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content bg-dark text-light">
-                            <div class="modal-header border-bottom border-warning">
-                                <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure you want to log out?
-                            </div>
-                            <div class="modal-footer border-top border-warning">
-                                <button type="button" class="btn border-secondary text-light" data-bs-dismiss="modal">Cancel</button>
-                                <form action="../../employee/logout.php" method="POST">
-                                    <button type="submit" class="btn btn-danger">Logout</button>
-                                </form>
+                    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content bg-dark text-light">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to log out?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn border-secondary text-light" data-bs-dismiss="modal">Cancel</button>
+                                    <form action="../../employee/logout.php" method="POST">
+                                        <button type="submit" class="btn btn-danger">Logout</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>  
-            <footer class="py-4 bg-dark text-light mt-auto border-top border-warning">
+                    </div>  
+                </div>
+            </main>
+            <footer class="py-4 bg-dark text-light mt-auto border-top border-secondary">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; Your Website 2024</div>
@@ -283,7 +278,9 @@ $conn->close();
                     </div>
                 </div>
             </footer>
-            <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+        </div>
+    </div>
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-transparent border-0">
                     <div class="modal-body d-flex flex-column align-items-center justify-content-center">
@@ -295,7 +292,7 @@ $conn->close();
                 </div>
            </div>
     <script>
-          document.addEventListener('DOMContentLoaded', function () {
+         document.addEventListener('DOMContentLoaded', function () {
                 const buttons = document.querySelectorAll('.loading');
                 const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
 

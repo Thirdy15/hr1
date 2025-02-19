@@ -169,7 +169,7 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                             <div class="collapse" id="collapseTAD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link text-light loading" href="../../employee/fieldworker/attendance.php">Attendance Scanner</a>
-                                    <a class="nav-link text-light" href="">Timesheet</a>
+                                    <a class="nav-link text-light loading" href="">Timesheet</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLM" aria-expanded="false" aria-controls="collapseLM">
@@ -178,11 +178,10 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLM" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light loading" href="../../employee/fieldworker/leave_file.php">File Leave</a>
-                                <a class="nav-link text-light loading" href="../../employee/fieldworker/leave_request.php">Endorse Leave</a>
-                                </nav>
-                            </div>
+                            <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link text-light loading loading" href="../../employee/fieldworker/leave_file.php">File Leave</a>
+                            </nav>
+                           </div>
                             <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePM" aria-expanded="false" aria-controls="collapsePM">
                                 <div class="sb-nav-link-icon"><i class="fas fa-line-chart"></i></div>
                                 Performance Management
@@ -244,15 +243,15 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                                     <div class="card-body bg-dark">
                                         <div class="row">
                                             <div class="col-xl-2">
-                                                <div class="d-flex justify-content-center">
+                                                <div class="d-flex justify-content-center align-items-center">
                                                     <img src="<?php echo (!empty($employeeInfo['pfp']) && $employeeInfo['pfp'] !== 'defaultpfp.png') 
                                                         ? htmlspecialchars($employeeInfo['pfp']) 
                                                         : '../../img/defaultpfp.jpg'; ?>" 
                                                         class="rounded-circle border border-light img-fluid" 
-                                                        style="max-width: 230px; max-height: 230px; min-width: 230px; min-height: 230px; object-fit: cover; cursor: pointer;" 
-                                                        alt="Profile Picture" 
-                                                        id="profilePic" data-bs-toggle="modal" data-bs-target="#profilePicModal" />
+                                                        style="max-width: 100%; height: auto; object-fit: cover; cursor: pointer;" 
+                                                        alt="Profile Picture"id="profilePic" data-bs-toggle="modal" data-bs-target="#profilePicModal" />  
                                                 </div>
+ 
                                                 <div class="modal fade" id="profilePicModal" tabindex="-1" aria-labelledby="profilePicModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered"> <!-- Set the modal size using 'modal-lg' for large -->
                                                         <div class="modal-content bg-dark text-light" style="width: 600px; height: 500px;">
@@ -292,7 +291,6 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                                             <div class="col-xl-10 mb-4">
                                                 <div class="">
                                                     <div class="d-flex justify-content-start">
-                                                        <button type="button" class="btn btn-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#qrCodeModal">Show QR Code</button>
                                                         <a href="../../employee/fieldworker/change_pass.php" class="btn btn-primary"> Change password </a>
                                                     </div>
                                                 </div>
@@ -445,22 +443,6 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                         </div>
                     </div>
                 </main>
-                    <div class="modal fade" id="qrCodeModal" tabindex="-1" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content bg-dark text-light">
-                                <div class="modal-header boder-1 border-secondary">
-                                    <h5 class="modal-title" id="qrCodeModalLabel">QR Code</h5>
-                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body text-center">
-                                    <img src="<?php echo $qrImagePath; ?>" alt="QR Code" class="img-fluid rounded border border-light" width="300">
-                                </div>
-                                <div class="modal-footer boder-1 border-secondary">
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content bg-dark text-light">

@@ -144,6 +144,8 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
         <a class="navbar-brand ps-3 text-muted" href="../../employee/contractual/dashboard.php">Employee Portal</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars text-light"></i></button>
         <div class="d-flex ms-auto me-0 me-md-3 my-2 my-md-0 align-items-center">
+            
+        
             <div class="text-light me-3 p-2 rounded shadow-sm bg-gradient" id="currentTimeContainer" 
             style="background: linear-gradient(45deg, #333333, #444444); border-radius: 5px;">
                 <span class="d-flex align-items-center">
@@ -157,6 +159,7 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                     </button>
                 </span>
             </div>
+
             <div class="dropdown search-container" style="position: relative;">
                 <form class="d-none d-md-inline-block form-inline">
                     <div class="input-group">
@@ -169,7 +172,7 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                     <ul id="searchResults" class="dropdown-menu list-group mt-2 bg-transparent" style="width: 100%;"></ul>
                 </form>
             </div>
-            
+
             <!-- Notification Bell -->
             <div class="ms-3 dropdown">
                 <button class="btn btn-outline-secondary btn-sm text-light" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -180,15 +183,15 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                     <!-- Notifications will be dynamically added here -->
                 </ul>
             </div>
-                     
         </div>
+        
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">   
-                         <div class="sb-sidenav-menu-heading text-center text-muted">Profile</div>
+                <div class="sb-sidenav-menu">    
+                    <div class="nav">
+                         <div class="sb-sidenav-menu-heading text-center text-muted">Profile</div>  
                         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-light d-flex justify-content-center ms-4" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -198,7 +201,7 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                                         class="rounded-circle border border-light" width="120" height="120" alt="" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="../../employee/contractual/profile.php">Profile</a></li>
+                                    <li><a class="dropdown-item loading" href="../../employee/contractual/profile.php">Profile</a></li>
                                     <li><a class="dropdown-item" href="#!">Settings</a></li>
                                     <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                                     <li><hr class="dropdown-divider" /></li>
@@ -215,7 +218,7 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                             </li>
                         </ul>
                         <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-secondary mt-3">Employee Dashboard</div>
-                        <a class="nav-link text-light" href="../../employee/contractual/dashboard.php">
+                        <a class="nav-link text-light loading" href="../../employee/contractual/dashboard.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>           
@@ -226,8 +229,8 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                         </a>
                         <div class="collapse" id="collapseTAD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light" href="../../employee/contractual/attendance.php">Attendance Scanner</a>
-                                <a class="nav-link text-light" href="">View Attendance Record</a>
+                                <a class="nav-link text-light loading" href="../../employee/contractual/attendance.php">Attendance Scanner</a>
+                                <a class="nav-link text-light loading" href="">View Attendance Record</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePM" aria-expanded="false" aria-controls="collapsePM">
@@ -237,9 +240,9 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                         </a>
                         <div class="collapse" id="collapsePM" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light" href="../../employee/contractual/kpi.php">Performance</a>
-                                <a class="nav-link text-light" href="../../employee/contractual/evaluation.php">Evaluation Ratings</a>
-                                <a class="nav-link text-light" href="../../employee/contractual/evaluation.php">Evaluation</a>
+                                <a class="nav-link text-light loading" href="../../employee/contractual/kpi.php">Performance</a>
+                                <a class="nav-link text-light loading" href="../../employee/contractual/evaluation.php">Evaluation Ratings</a>
+                                <a class="nav-link text-light loading" href="../../employee/contractual/evaluation.php">Evaluation</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSR" aria-expanded="false" aria-controls="collapseSR">
@@ -249,8 +252,7 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                         </a>
                         <div class="collapse" id="collapseSR" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light" href="../../employee/contractual/awardee.php">Awardee</a>
-                                <a class="nav-link text-light" href="../../employee/contractual/recognition.php">View Your Rating</a>
+                                <a class="nav-link text-light loading" href="../../employee/contractual/awardee.php">Awardee</a>
                             </nav>
                         </div> 
                         <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-secondary mt-3">Feedback</div> 
@@ -305,7 +307,7 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                                     <div class="d-flex justify-content-between align-items-start mb-4">
                                         <div>
                                             <h5 class="fw-bold">Today's Date:</h5>
-                                            <a href="../../employee/supervisor/dashboard.php" id="todaysDate" class="cursor-pointer">
+                                            <a href="../../employee/contractual/dashboard.php" id="todaysDate" class="cursor-pointer">
                                                 <span id="todaysDateContent"></span>
                                             </a>
                                         </div>
@@ -768,8 +770,66 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
             </footer>
         </div>
     </div>
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-transparent border-0">
+                    <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+                            <!-- Bouncing coin spinner -->
+                            <div class="coin-spinner"></div>
+                            <div class="mt-3 text-light fw-bold">Please wait...</div>
+                        </div>
+                    </div>
+                </div>
+           </div>
 
 <script>
+      document.addEventListener('DOMContentLoaded', function () {
+                const buttons = document.querySelectorAll('.loading');
+                const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+
+                // Loop through each button and add a click event listener
+                buttons.forEach(button => {
+                    button.addEventListener('click', function (event) {
+                        // Show the loading modal
+                        loadingModal.show();
+
+                        // Disable the button to prevent multiple clicks
+                        this.classList.add('disabled');
+
+                        // Handle form submission buttons
+                        if (this.closest('form')) {
+                            event.preventDefault(); // Prevent the default form submit
+
+                            // Submit the form after a short delay
+                            setTimeout(() => {
+                                this.closest('form').submit();
+                            }, 1500);
+                        }
+                        // Handle links
+                        else if (this.tagName.toLowerCase() === 'a') {
+                            event.preventDefault(); // Prevent the default link behavior
+
+                            // Redirect after a short delay
+                            setTimeout(() => {
+                                window.location.href = this.href;
+                            }, 1500);
+                        }
+                    });
+                });
+
+                // Hide the loading modal when navigating back and enable buttons again
+                window.addEventListener('pageshow', function (event) {
+                    if (event.persisted) { // Check if the page was loaded from cache (back button)
+                        loadingModal.hide();
+
+                        // Re-enable all buttons when coming back
+                        buttons.forEach(button => {
+                            button.classList.remove('disabled');
+                        });
+                        
+                    }
+                });
+            });
     // for calendar only
     let calendar; // Declare calendar variable globally
 

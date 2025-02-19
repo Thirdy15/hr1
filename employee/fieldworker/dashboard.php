@@ -144,6 +144,8 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
         <a class="navbar-brand ps-3 text-muted" href="../../employee/fieldworker/dashboard.php">Employee Portal</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars text-light"></i></button>
         <div class="d-flex ms-auto me-0 me-md-3 my-2 my-md-0 align-items-center">
+            
+        
             <div class="text-light me-3 p-2 rounded shadow-sm bg-gradient" id="currentTimeContainer" 
             style="background: linear-gradient(45deg, #333333, #444444); border-radius: 5px;">
                 <span class="d-flex align-items-center">
@@ -157,6 +159,7 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                     </button>
                 </span>
             </div>
+
             <div class="dropdown search-container" style="position: relative;">
                 <form class="d-none d-md-inline-block form-inline">
                     <div class="input-group">
@@ -170,12 +173,13 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                 </form>
             </div>
 
+            <!-- Notification Bell -->
             <div class="ms-3 dropdown">
                 <button class="btn btn-outline-secondary btn-sm text-light" type="button" id="notificationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-bell"></i>
                     <span class="badge bg-danger" id="notificationCount">0</span>
                 </button>
-                <ul class="ms-3 dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown" id="notificationList">
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown" id="notificationList">
                     <!-- Notifications will be dynamically added here -->
                 </ul>
             </div>
@@ -185,7 +189,7 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
+                <div class="sb-sidenav-menu">    
                     <div class="nav">
                          <div class="sb-sidenav-menu-heading text-center text-muted">Profile</div>  
                         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
@@ -248,6 +252,7 @@ $profilePicture = !empty($employeeInfo['pfp']) ? $employeeInfo['pfp'] : '../../i
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link text-light loading" href="../../employee/fieldworker/kpi.php">Performance</a>
                                 <a class="nav-link text-light loading" href="../../employee/fieldworker/evaluation.php">Evaluation Ratings</a>
+                                <a class="nav-link text-light loading" href="../../employee/fieldworker/evaluation.php">Evaluation</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSR" aria-expanded="false" aria-controls="collapseSR">

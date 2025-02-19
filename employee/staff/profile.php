@@ -87,7 +87,7 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
 </head>
     <body class="sb-nav-fixed bg-black">
         <nav class="sb-topnav navbar navbar-expand navbar-dark border-bottom border-1 border-secondary bg-dark">
-            <a class="navbar-brand ps-3 text-muted" href="../../employee/supervisor/dashboard.php">Employee Portal</a>
+            <a class="navbar-brand ps-3 text-muted" href="../../employee/staff/dashboard.php">Employee Portal</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars text-light"></i></button>
             <div class="d-flex ms-auto me-0 me-md-3 my-2 my-md-0 align-items-center">
                 <div class="text-light me-3 p-2 rounded shadow-sm bg-gradient" id="currentTimeContainer" 
@@ -127,7 +127,7 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                                                     class="rounded-circle border border-light" width="120" height="120" alt="" />
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="../../employee/supervisor/profile.php">Profile</a></li>
+                                                <li><a class="dropdown-item loading" href="../../employee/staff/profile.php">Profile</a></li>
                                                 <li><a class="dropdown-item" href="#!">Settings</a></li>
                                                 <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                                                 <li><hr class="dropdown-divider" /></li>
@@ -157,7 +157,7 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                                     </ul>
                                 </div>
                             <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-secondary mt-3">Employee Dashboard</div>
-                            <a class="nav-link text-light" href="../../employee/supervisor/dashboard.php">
+                            <a class="nav-link text-light loading" href="../../employee/staff/dashboard.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
@@ -168,8 +168,8 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                             </a>
                             <div class="collapse" id="collapseTAD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link text-light" href="../../employee/supervisor/attendance.php">Attendance Scanner</a>
-                                    <a class="nav-link text-light" href="">Timesheet</a>
+                                    <a class="nav-link text-light loading" href="../../employee/staff/attendance.php">Attendance Scanner</a>
+                                    <a class="nav-link text-light loading" href="">Timesheet</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLM" aria-expanded="false" aria-controls="collapseLM">
@@ -178,11 +178,10 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLM" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light" href="../../employee/supervisor/leave_file.php">File Leave</a>
-                                <a class="nav-link text-light" href="../../employee/supervisor/leave_request.php">Endorse Leave</a>
-                                </nav>
-                            </div>
+                            <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link text-light loading loading" href="../../employee/staff/leave_file.php">File Leave</a>
+                            </nav>
+                           </div>
                             <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePM" aria-expanded="false" aria-controls="collapsePM">
                                 <div class="sb-nav-link-icon"><i class="fas fa-line-chart"></i></div>
                                 Performance Management
@@ -190,7 +189,7 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                             </a>
                             <div class="collapse" id="collapsePM" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light" href="../../employee/supervisor/evaluation.php">Evaluation</a>
+                                <a class="nav-link text-light loading" href="../../employee/staff/evaluation.php">Evaluation</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSR" aria-expanded="false" aria-controls="collapseSR">
@@ -200,7 +199,7 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                             </a>
                             <div class="collapse" id="collapseSR" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link text-light" href="../../employee/supervisor/awardee.php">View Your Rating</a>
+                                    <a class="nav-link text-light loading" href="../../employee/staff/awardee.php">View Your Rating</a>
                                 </nav>
                             </div>
                             <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-secondary mt-3">Feedback</div> 
@@ -292,7 +291,7 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                                             <div class="col-xl-10 mb-4">
                                                 <div class="">
                                                     <div class="d-flex justify-content-start">
-                                                        <a href="../../employee/supervisor/change_pass.php" class="btn btn-primary"> Change password </a>
+                                                        <a href="../../employee/staff/change_pass.php" class="btn btn-primary"> Change password </a>
                                                     </div>
                                                 </div>
                                                 <div class="mt-3">
@@ -340,7 +339,7 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                                                 <h3 class="card-title text-center">Edit Information</h3>
                                             </div>
                                             <div class="card-body bg-dark">
-                                                <form id="infoForm" action="../../employee_db/supervisor/update_profile.php" method="post">
+                                                <form id="infoForm" action="../../employee_db/staff/update_profile.php" method="post">
                                                     <div class="row mb-3">
                                                         <div class="col-sm-4 bg-dark form-floating mb-3">
                                                             <input type="text" class="form-control fw-bold" id="inputfName" name="firstname" value="<?php echo htmlspecialchars($employeeInfo['firstname']); ?>" readonly required>
@@ -382,7 +381,7 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                                                 </form>
                                             </div>
                                         </div>
-                                        <form action="../../employee_db/supervisor/update_employee_pfp.php" method="post" enctype="multipart/form-data" id="profilePictureForm" style="display:none;">
+                                        <form action="../../employee_db/staff/update_employee_pfp.php" method="post" enctype="multipart/form-data" id="profilePictureForm" style="display:none;">
                                             <input type="file" id="profilePictureInput" name="profile_picture" accept="image/*" onchange="showConfirmationModal();">
                                         </form>
                                         <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -474,7 +473,7 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                                     <p>Are you sure you want to delete your profile picture?</p>
                                 </div>
                                 <div class="modal-footer border-top border-secondary">
-                                    <form action="../../employee_db/supervisor/delete_employee_pfp.php" method="post">
+                                    <form action="../../employee_db/staff/delete_employee_pfp.php" method="post">
                                         <input type="hidden" name="employeeId" value="<?php echo $employeeInfo['e_id']; ?>">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -514,7 +513,65 @@ QRcode::png($qrData, $qrImagePath, QR_ECLEVEL_L, 4);
                 </footer>
             </div>
         </div>
+        <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-transparent border-0">
+                    <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+                            <!-- Bouncing coin spinner -->
+                            <div class="coin-spinner"></div>
+                            <div class="mt-3 text-light fw-bold">Please wait...</div>
+                        </div>
+                    </div>
+                </div>
+           </div>
         <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                const buttons = document.querySelectorAll('.loading');
+                const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+
+                // Loop through each button and add a click event listener
+                buttons.forEach(button => {
+                    button.addEventListener('click', function (event) {
+                        // Show the loading modal
+                        loadingModal.show();
+
+                        // Disable the button to prevent multiple clicks
+                        this.classList.add('disabled');
+
+                        // Handle form submission buttons
+                        if (this.closest('form')) {
+                            event.preventDefault(); // Prevent the default form submit
+
+                            // Submit the form after a short delay
+                            setTimeout(() => {
+                                this.closest('form').submit();
+                            }, 1500);
+                        }
+                        // Handle links
+                        else if (this.tagName.toLowerCase() === 'a') {
+                            event.preventDefault(); // Prevent the default link behavior
+
+                            // Redirect after a short delay
+                            setTimeout(() => {
+                                window.location.href = this.href;
+                            }, 1500);
+                        }
+                    });
+                });
+
+                // Hide the loading modal when navigating back and enable buttons again
+                window.addEventListener('pageshow', function (event) {
+                    if (event.persisted) { // Check if the page was loaded from cache (back button)
+                        loadingModal.hide();
+
+                        // Re-enable all buttons when coming back
+                        buttons.forEach(button => {
+                            button.classList.remove('disabled');
+                        });
+                        
+                    }
+                });
+            });
             //CALENDAR 
             let calendar;
                 function toggleCalendar() {

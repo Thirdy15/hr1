@@ -4,25 +4,20 @@ session_start();
 // Include database connection
 include '../../db/db_conn.php'; 
 
-// Redirect to login page if employee is not logged in
 if (!isset($_SESSION['e_id'])) {
     header("Location: ../../employee/login.php");
     exit();
 }
 
-// Get the employee ID from the session
 $employeeId = $_SESSION['e_id'];
-
-// Fetch employee information
-$sql = "SELECT e_id, firstname, middlename, lastname, birthdate, email, role, position, department, phone_number, address, pfp 
-        FROM employee_register WHERE e_id = ?";
+$sql = "SELECT e_id, firstname, middlename, lastname, birthdate, email, role, position, department, phone_number, address, pfp FROM employee_register WHERE e_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $employeeId);
 $stmt->execute();
 $result = $stmt->get_result();
-
-// Store employee info in variable
 $employeeInfo = $result->fetch_assoc();
+
+$employeeId = $_SESSION['e_id'];
 
 // Fetch the average of the employee's evaluations
 $sql = "SELECT 
@@ -34,6 +29,7 @@ $sql = "SELECT
             COUNT(*) AS total_evaluations 
         FROM admin_evaluations 
         WHERE e_id = ?";
+        
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $employeeId);
 $stmt->execute();
@@ -47,11 +43,9 @@ if ($result->num_rows > 0) {
     exit;
 }
 
-// Close the statement and connection
 $stmt->close();
 $conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,28 +61,27 @@ $conn->close();
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="sb-nav-fixed bg-black">
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark border-bottom border-1 borders-secondary">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark border-bottom border-1 border-secondary bg-dark">
         <a class="navbar-brand ps-3 text-muted" href="../../employee/contractual/dashboard.php">Employee Portal</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars text-light"></i></button>
-        <div class="d-flex ms-auto me-0 me-md-3 my-2 my-md-0 align-items-center">
-            <i class="fa fa-bell me-2 text-primary" style="font-size:20px;" alt="Notification Bell" onclick="showNotification()" style="width: 50px; height: 50px; cursor: pointer;"></i>
-            <div class="text-light me-3 p-2 rounded shadow-sm bg-gradient" id="currentTimeContainer" 
-            style="background: linear-gradient(45deg, #333333, #444444); border-radius: 5px;">
-                <span class="d-flex align-items-center ms-2">
-                    <span class="pe-2">
-                        <i class="fas fa-clock"></i> 
-                        <span id="currentTime">00:00:00</span>
+            <div class="d-flex ms-auto me-0 me-md-3 my-2 my-md-0 align-items-center">
+                <div class="text-light me-3 p-2 rounded shadow-sm bg-gradient" id="currentTimeContainer" 
+                    style="background: linear-gradient(45deg, #333333, #444444); border-radius: 5px;">
+                    <span class="d-flex align-items-center">
+                        <span class="pe-2">
+                            <i class="fas fa-clock"></i> 
+                            <span id="currentTime">00:00:00</span>
+                        </span>
+                        <button class="btn btn-outline-warning btn-sm ms-2" type="button" onclick="toggleCalendar()">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span id="currentDate">00/00/0000</span>
+                        </button>
                     </span>
-                    <button class="btn btn-outlines-secondary btn-sm ms-2" type="button" onclick="toggleCalendar()">
-                        <i class="fas fa-calendar-alt"></i>
-                        <span id="currentDate">00/00/0000</span>
-                    </button>
-                </span>
-            </div>
+                </div>
                 <form class="d-none d-md-inline-block form-inline">
                     <div class="input-group">
                         <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                        <button class="btn btns-secondary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-warning" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
                     </div>
                 </form>
             </div>
@@ -128,7 +121,7 @@ $conn->close();
                                 <span class="big text-light">
                                     <?php
                                         if ($employeeInfo) {
-                                        echo htmlspecialchars($employeeInfo['role']);
+                                        echo htmlspecialchars($employeeInfo['position']);
                                         } else {
                                         echo "User information not available.";
                                         }
@@ -136,7 +129,7 @@ $conn->close();
                                 </span>
                             </li>
                         </ul>
-                        <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 borders-secondary mt-3">Employee Dashboard</div>
+                        <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-secondary mt-3">Employee Dashboard</div>
                         <a class="nav-link text-light loading" href="../../employee/contractual/dashboard.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
@@ -149,10 +142,20 @@ $conn->close();
                         <div class="collapse" id="collapseTAD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link text-light loading" href="../../employee/contractual/attendance.php">Attendance Scanner</a>
-                                <a class="nav-link text-light loading" href="">Timesheet</a>
+                                <a class="nav-link text-light" href="">Timesheet</a>
                             </nav>
                         </div>
-                       
+                        <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLM" aria-expanded="false" aria-controls="collapseLM">
+                            <div class="sb-nav-link-icon"><i class="fas fa-calendar-times"></i></div>
+                            Leave Management
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLM" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link text-light loading" href="../../employee/contractual/leave_file.php">File Leave</a>
+                            <a class="nav-link text-light loading" href="../../employee/contractual/leave_request.php">Endorse Leave</a>
+                            </nav>
+                        </div>
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePM" aria-expanded="false" aria-controls="collapsePM">
                             <div class="sb-nav-link-icon"><i class="fas fa-line-chart"></i></div>
                             Performance Management
@@ -160,8 +163,7 @@ $conn->close();
                         </a>
                         <div class="collapse" id="collapsePM" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link text-light loading" href="../../employee/contractual/evaluation.php">View Ratings</a>
-                            <a class="nav-link text-light loading" href="../../employee/contractual/department.php">Department Evaluation</a>
+                            <a class="nav-link text-light loading" href="../../employee/contractual/evaluation.php">Evaluation</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSR" aria-expanded="false" aria-controls="collapseSR">
@@ -174,7 +176,7 @@ $conn->close();
                                 <a class="nav-link text-light loading" href="../../employee/contractual/awardee.php">Awardee</a>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 borders-secondary mt-3">Feedback</div> 
+                        <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-secondary mt-3">Feedback</div> 
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseFB" aria-expanded="false" aria-controls="collapseFB">
                             <div class="sb-nav-link-icon"><i class="fas fa-exclamation-circle"></i></div>
                             Report Issue
@@ -187,7 +189,7 @@ $conn->close();
                         </div> 
                     </div>
                 </div>
-                <div class="sb-sidenav-footer bg-black text-light border-top border-1 borders-secondary">
+                <div class="sb-sidenav-footer bg-black text-light border-top border-1 border-secondary">
                     <div class="small">Logged in as: <?php echo htmlspecialchars($employeeInfo['role']); ?></div>
                 </div>
             </nav>
@@ -205,14 +207,14 @@ $conn->close();
                             </div>
                         </div>
                     </div>   
-                    <div class="card text-light bg-black py-4">
+                    <div class="card bg-black text-light py-4">
                         <p>Total number of evaluations: <?php echo htmlspecialchars($evaluation['total_evaluations']); ?></p>
                         
                         <div class="bg-dark bordered">
                             <canvas id="evaluationChart" width="700" height="400"></canvas>
                         </div>
 
-                        <table class="table table-bordered mt-3 text-light table-dark w-50">
+                        <table class="table table-bordered mt-3 text-light table-dark">
                             <thead>
                                 <tr class="text-center">
                                     <th>Category</th>
@@ -243,28 +245,28 @@ $conn->close();
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </main>
-                <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content bg-dark text-light">
-                            <div class="modal-header border-bottom borders-secondary">
-                                <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure you want to log out?
-                            </div>
-                            <div class="modal-footer border-top borders-secondary">
-                                <button type="button" class="btn border-secondary text-light" data-bs-dismiss="modal">Cancel</button>
-                                <form action="../../employee/logout.php" method="POST">
-                                    <button type="submit" class="btn btn-danger">Logout</button>
-                                </form>
+                    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content bg-dark text-light">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to log out?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn border-secondary text-light" data-bs-dismiss="modal">Cancel</button>
+                                    <form action="../../employee/logout.php" method="POST">
+                                        <button type="submit" class="btn btn-danger">Logout</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>  
-            <footer class="py-4 bg-dark text-light mt-auto border-top borders-secondary">
+                    </div>  
+                </div>
+            </main>
+            <footer class="py-4 bg-dark text-light mt-auto border-top border-secondary">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
                         <div class="text-muted">Copyright &copy; Your Website 2024</div>
@@ -276,7 +278,9 @@ $conn->close();
                     </div>
                 </div>
             </footer>
-            <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+        </div>
+    </div>
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content bg-transparent border-0">
                     <div class="modal-body d-flex flex-column align-items-center justify-content-center">
@@ -288,7 +292,7 @@ $conn->close();
                 </div>
            </div>
     <script>
-          document.addEventListener('DOMContentLoaded', function () {
+         document.addEventListener('DOMContentLoaded', function () {
                 const buttons = document.querySelectorAll('.loading');
                 const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
 

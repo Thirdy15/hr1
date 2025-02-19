@@ -134,6 +134,7 @@ $conn->close();
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link text-light loading" role="status" href="../admin/leave_requests.php">Leave Requests</a>
                                 <a class="nav-link text-light loading" role="status" href="../admin/leave_history.php">Leave History</a>
+                                <a class="nav-link text-light loading" role="status"  href="../admin/leave_allocation.php">Set Leave</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePM" aria-expanded="false" aria-controls="collapsePM">

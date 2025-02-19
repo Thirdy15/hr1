@@ -148,7 +148,7 @@ $conn->close();
                                         class="rounded-circle border border-light" width="120" height="120" alt="" />
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="../../employee/supervisor/profile.php">Profile</a></li>
+                                    <li><a class="dropdown-item loading" href="../../employee/supervisor/profile.php">Profile</a></li>
                                     <li><a class="dropdown-item" href="#!">Settings</a></li>
                                     <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                                     <li><hr class="dropdown-divider" /></li>
@@ -177,7 +177,7 @@ $conn->close();
                             </li>
                         </ul>
                         <div class="sb-sidenav-menu-heading text-center text-muted border-top border-1 border-secondary mt-3">Employee Dashboard</div>
-                        <a class="nav-link text-light" href="../../employee/supervisor/dashboard.php">
+                        <a class="nav-link text-light loading" href="../../employee/supervisor/dashboard.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
@@ -188,8 +188,8 @@ $conn->close();
                         </a>
                         <div class="collapse" id="collapseTAD" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light" href="../../employee/supervisor/attendance.php">Attendance</a>
-                                <a class="nav-link text-light" href="">Timesheet</a>
+                                <a class="nav-link text-light loading" href="../../employee/supervisor/attendance.php">Attendance</a>
+                                <a class="nav-link text-light loading" href="">Timesheet</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLM" aria-expanded="false" aria-controls="collapseLM">
@@ -199,8 +199,8 @@ $conn->close();
                         </a>
                         <div class="collapse" id="collapseLM" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link text-light" href="../../employee/supervisor/leave_file.php">File Leave</a>
-                            <a class="nav-link text-light" href="../../employee/supervisor/leave_request.php">Leave Request</a>
+                            <a class="nav-link text-light loading" href="../../employee/supervisor/leave_file.php">File Leave</a>
+                            <a class="nav-link text-light loading" href="../../employee/supervisor/leave_request.php">Leave Request</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePM" aria-expanded="false" aria-controls="collapsePM">
@@ -210,7 +210,7 @@ $conn->close();
                         </a>
                         <div class="collapse" id="collapsePM" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link text-light" href="../../employee/supervisor/evaluation.php">Evaluation</a>
+                            <a class="nav-link text-light loading" href="../../employee/supervisor/evaluation.php">Evaluation</a>
                             </nav>
                         </div>
                         <a class="nav-link collapsed text-light" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSR" aria-expanded="false" aria-controls="collapseSR">
@@ -220,7 +220,7 @@ $conn->close();
                         </a>
                         <div class="collapse" id="collapseSR" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link text-light" href="">Awardee</a>
+                                <a class="nav-link text-light loading" href="../../employee/supervisor/awardee.php">Awardee</a>
                             </nav>
                         </div>
                     </div>
@@ -425,7 +425,65 @@ $conn->close();
             </footer>
         </div>
     </div>
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-transparent border-0">
+                    <div class="modal-body d-flex flex-column align-items-center justify-content-center">
+                            <!-- Bouncing coin spinner -->
+                            <div class="coin-spinner"></div>
+                            <div class="mt-3 text-light fw-bold">Please wait...</div>
+                        </div>
+                    </div>
+                </div>
+           </div>
     <script>
+         document.addEventListener('DOMContentLoaded', function () {
+                const buttons = document.querySelectorAll('.loading');
+                const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
+
+                // Loop through each button and add a click event listener
+                buttons.forEach(button => {
+                    button.addEventListener('click', function (event) {
+                        // Show the loading modal
+                        loadingModal.show();
+
+                        // Disable the button to prevent multiple clicks
+                        this.classList.add('disabled');
+
+                        // Handle form submission buttons
+                        if (this.closest('form')) {
+                            event.preventDefault(); // Prevent the default form submit
+
+                            // Submit the form after a short delay
+                            setTimeout(() => {
+                                this.closest('form').submit();
+                            }, 1500);
+                        }
+                        // Handle links
+                        else if (this.tagName.toLowerCase() === 'a') {
+                            event.preventDefault(); // Prevent the default link behavior
+
+                            // Redirect after a short delay
+                            setTimeout(() => {
+                                window.location.href = this.href;
+                            }, 1500);
+                        }
+                    });
+                });
+
+                // Hide the loading modal when navigating back and enable buttons again
+                window.addEventListener('pageshow', function (event) {
+                    if (event.persisted) { // Check if the page was loaded from cache (back button)
+                        loadingModal.hide();
+
+                        // Re-enable all buttons when coming back
+                        buttons.forEach(button => {
+                            button.classList.remove('disabled');
+                        });
+                        
+                    }
+                });
+            });
         //CALENDAR 
         let calendar;
             function toggleCalendar() {
